@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+import Home from './pages/Home/Home';
 import './App.css';
 
-const App = () => {
+const App: FunctionComponent = () => {
 	return (
 		<div>
-			<h1>OLISA EMODI HELLO</h1>
+			<Home />
 		</div>
 	);
 };

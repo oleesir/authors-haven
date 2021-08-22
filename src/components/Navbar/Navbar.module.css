@@ -1,0 +1,81 @@
+.Navbar {
+	width: 100%;
+	padding: 10px 30px;
+	position: fixed;
+	background-color: #e8e8e8;
+	justify-content: space-between;
+	display: flex;
+	align-items: center;
+	top: 0;
+	-webkit-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+	box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.AuthLink {
+	display: flex;
+	justify-content: space-around;
+	width: 15%;
+}
+
+.AuthBtn {
+	padding: 15px 25px;
+	border: none;
+	cursor: pointer;
+	font-size: 18px;
+	text-align: center;
+	border-radius: 8px;
+	outline: none;
+	background-color: transparent;
+}
+
+.AuthBtn:hover {
+	color: #fd8234;
+	transition: 0.5s all ease-out;
+}
+
+.Burger {
+	display: none;
+	outline: none;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 960px) {
+	.Burger {
+		display: block;
+		cursor: pointer;
+	}
+
+	.AuthLink {
+		position: absolute;
+		right: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		background-color: rgba(253, 130, 52, 1);
+		width: 100%;
+		top: 100%;
+		transform: translateY(-170%);
+		transition: 0.3s ease-in;
+		border: 0.5px solid rgba(253, 130, 52, 1);
+	}
+
+	.Active {
+		transform: translateY(0%);
+	}
+
+	.AuthBtn {
+		color: #fff;
+		width: 100%;
+		font-size: small;
+		border-radius: 0px;
+	}
+
+	.AuthBtn:hover {
+		color: rgba(253, 130, 52, 1);
+		background-color: #fff;
+		transition: 0.5s all ease-out;
+	}
+}
