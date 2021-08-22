@@ -18,6 +18,6 @@ jobs:
             - ~/.node_modules
             - ~/.npm
 
-      - run: yarn test
+      # - run: yarn test
 
       - run: yarn build
