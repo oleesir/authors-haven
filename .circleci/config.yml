@@ -28,4 +28,5 @@ jobs:
             ./cc-test-reporter before-build
             npm run test --coverage
             ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
-      # - run: yarn build
+      - store_test_results:
+          path: ./reports/codeclimate
