@@ -30,3 +30,6 @@ jobs:
             ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
       - store_test_results:
           path: ./reports/codeclimate
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
