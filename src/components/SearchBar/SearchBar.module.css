@@ -1,0 +1,28 @@
+.SearchBar {
+	width: 40%;
+	background-color: rgba(251, 250, 250, 1);
+	padding-left: 50.74px;
+	border: none;
+	outline: none;
+	height: 40px;
+	font-size: 17px;
+	align-items: center;
+	border-radius: 5px;
+	background-repeat: no-repeat;
+	background-position: 20px 10.53px;
+	background-size: 20px;
+	background-image: url('/src/images/search.svg');
+	-moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+	color: rgba(0, 0, 0, 0.49);
+	font-style: normal;
+	font-size: 17px;
+	font-weight: 200;
+}
+
+@media screen and (max-width: 650px) {
+	.SearchBar {
+		width: 70%;
+	}
+}
