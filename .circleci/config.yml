@@ -28,4 +28,4 @@ jobs:
             ./cc-test-reporter before-build
             npm run test --coverage
             ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
-      - run: yarn build
+      # - run: yarn build
