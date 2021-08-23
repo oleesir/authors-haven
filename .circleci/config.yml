@@ -28,8 +28,3 @@ jobs:
             ./cc-test-reporter before-build
             yarn test --coverage
             ./cc-test-reporter after-build -t lcov --exit-code $?
-      - store_test_results:
-          path: ./reports/codeclimate
-      - store_artifacts:
-          path: coverage
-          prefix: coverage
