@@ -16,7 +16,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ~/.node_modules
-            - ~/.npm
+            - ~/.yarn
       - run:
           name: Install Code Climate Test Reporter
           command: |
