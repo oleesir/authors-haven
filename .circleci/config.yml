@@ -26,7 +26,7 @@ jobs:
           name: Run tests
           command: |
             ./cc-test-reporter before-build
-            npm run test --coverage
+            yarn test --coverage
             ./cc-test-reporter after-build -t lcov --exit-code $?
       - store_test_results:
           path: ./reports/codeclimate
