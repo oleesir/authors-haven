@@ -7,6 +7,7 @@
 	display: flex;
 	align-items: center;
 	top: 0;
+	z-index: 1;
 	-webkit-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
 	-moz-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
 	box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
@@ -70,7 +71,8 @@
 		color: #fff;
 		width: 100%;
 		font-size: small;
-		border-radius: 0px;
+		border: 1px solid #fff;
+		border-radius: 5px;
 	}
 
 	.AuthBtn:hover {

@@ -2,11 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-const store = configureStore({
-	reducer: {},
-});
+import { store } from '././store';
+
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
