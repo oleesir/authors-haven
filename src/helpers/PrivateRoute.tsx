@@ -6,11 +6,7 @@ const PrivateRoute: FunctionComponent<{
 	path: string;
 	exact: boolean;
 }> = ({ path, exact, component }) => {
-	return 'condition' ? (
-		<Route path={path} exact={exact} component={component} />
-	) : (
-		<Redirect to='/' />
-	);
+	return 'condition' ? <Route path={path} exact={exact} component={component} /> : <Redirect to='/' />;
 };
 
 export default PrivateRoute;

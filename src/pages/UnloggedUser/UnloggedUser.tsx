@@ -60,29 +60,17 @@ const UnloggedUser: FunctionComponent = () => {
 
 			<div className={classes.Explore}>
 				<p className={classes.ExploreTop}>Explore Amazing Topics</p>
-				<p className={classes.ExploreBottom}>
-					Curated stories based on your prefrence
-				</p>
+				<p className={classes.ExploreBottom}>Curated stories based on your prefrence</p>
 			</div>
 			<Articles />
 			<div className={classes.SecondBannerContainer}>
 				<div className={classes.SecondBanner}>
 					<div className={classes.SecondBannerLeft}>
 						<p className={classes.Discover}>Discover</p>
-						<p className={classes.Curated}>
-							Curated stories based on your selection
-						</p>
-						<p className={classes.Tailored}>
-							Top stories tailored to meet your needs.
-						</p>
+						<p className={classes.Curated}>Curated stories based on your selection</p>
+						<p className={classes.Tailored}>Top stories tailored to meet your needs.</p>
 						<div className={classes.BtnContent}>
-							<Button
-								btnTypes='JoinBtn'
-								disabled={undefined}
-								sizes={''}
-								onClick={openAuthModel}
-								type='button'
-							>
+							<Button btnTypes='JoinBtn' disabled={undefined} sizes={''} onClick={openAuthModel} type='button'>
 								Join 1KbIdeas
 							</Button>
 						</div>
@@ -91,9 +79,7 @@ const UnloggedUser: FunctionComponent = () => {
 						<div className={classes.CircleFour}></div>
 						<div className={classes.QuoteMobile}>
 							<div className={classes.QuoteContentMobile}>
-								<p className={classes.QuoteMsgMobile}>
-									"This is the best place to live on the internet"
-								</p>
+								<p className={classes.QuoteMsgMobile}>"This is the best place to live on the internet"</p>
 								<p className={classes.QuoteNameMobile}>Olisa Emodi</p>
 							</div>
 						</div>
@@ -104,9 +90,7 @@ const UnloggedUser: FunctionComponent = () => {
 						<div className={classes.CircleThree}></div>
 						<div className={classes.Quote}>
 							<div className={classes.QuoteContent}>
-								<p className={classes.QuoteMsg}>
-									"This is the best place to live on the internet"
-								</p>
+								<p className={classes.QuoteMsg}>"This is the best place to live on the internet"</p>
 								<p className={classes.QuoteName}>Olisa Emodi</p>
 							</div>
 						</div>

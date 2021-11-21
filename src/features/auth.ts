@@ -39,29 +39,23 @@ const initialState: AuthState = {
 	loggedIn: false,
 };
 
-export const signupUser = createAsyncThunk(
-	'users/signupuser',
-	async (formData: UserInfo, { rejectWithValue }) => {
-		try {
-			const res = await AuthService.signupUser(formData);
-			return res.data.data;
-		} catch (err) {
-			return rejectWithValue((err as AxiosError)?.response?.data);
-		}
-	},
-);
+export const signupUser = createAsyncThunk('users/signupuser', async (formData: UserInfo, { rejectWithValue }) => {
+	try {
+		const res = await AuthService.signupUser(formData);
+		return res.data.data;
+	} catch (err) {
+		return rejectWithValue((err as AxiosError)?.response?.data);
+	}
+});
 
-export const verifyUser = createAsyncThunk(
-	'users/verification',
-	async (formData: LoginIn, { rejectWithValue }) => {
-		try {
-			const res = await AuthService.verifyToken(formData);
-			return res.data.data;
-		} catch (err) {
-			return rejectWithValue((err as AxiosError)?.response?.data);
-		}
-	},
-);
+export const verifyUser = createAsyncThunk('users/verification', async (formData: LoginIn, { rejectWithValue }) => {
+	try {
+		const res = await AuthService.verifyToken(formData);
+		return res.data.data;
+	} catch (err) {
+		return rejectWithValue((err as AxiosError)?.response?.data);
+	}
+});
 
 const authSlice = createSlice({
 	name: 'auth',
@@ -75,14 +69,11 @@ const authSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(
-			signupUser.fulfilled,
-			(state, action: PayloadAction<UserInfo>) => {
-				state.user = action.payload;
-				state.isError = false;
-				state.isSuccess = true;
-			},
-		);
+		builder.addCase(signupUser.fulfilled, (state, action: PayloadAction<UserInfo>) => {
+			state.user = action.payload;
+			state.isError = false;
+			state.isSuccess = true;
+		});
 
 		builder.addCase(signupUser.pending, (state) => {
 			state.isError = false;
@@ -94,15 +85,12 @@ const authSlice = createSlice({
 			state.message = action.payload.error;
 		});
 
-		builder.addCase(
-			verifyUser.fulfilled,
-			(state, action: PayloadAction<UserInfo>) => {
-				state.user = action.payload;
-				state.isAuthenticated = true;
-				state.isVerified = true;
-				state.isError = false;
-			},
-		);
+		builder.addCase(verifyUser.fulfilled, (state, action: PayloadAction<UserInfo>) => {
+			state.user = action.payload;
+			state.isAuthenticated = true;
+			state.isVerified = true;
+			state.isError = false;
+		});
 
 		builder.addCase(verifyUser.pending, (state) => {
 			state.isAuthenticated = false;

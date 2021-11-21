@@ -13,17 +13,10 @@ type Error = {
 };
 
 type NotificationsReducers = {
-	createNotification: CaseReducer<
-		NotificationsState,
-		PayloadAction<Notification | Error>
-	>;
+	createNotification: CaseReducer<NotificationsState, PayloadAction<Notification | Error>>;
 };
 
-const notificationSlice = createSlice<
-	NotificationsState,
-	NotificationsReducers,
-	'notify'
->({
+const notificationSlice = createSlice<NotificationsState, NotificationsReducers, 'notify'>({
 	name: 'notify',
 	initialState: {
 		notifications: [],
