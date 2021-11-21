@@ -1,0 +1,402 @@
+.Home {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	background-color: #e8e8e8;
+	/* overflow-y: scroll; */
+	position: relative;
+}
+
+.Explore {
+	margin-top: 70px;
+	width: 100%;
+	text-align: center;
+}
+
+.ExploreTop {
+	font-size: 40px;
+	margin-bottom: 10px;
+}
+
+.ExploreBottom {
+	color: rgba(36, 41, 44, 0.5);
+	font-weight: 300;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+.NotifyContent {
+	z-index: 999;
+	top: 300px;
+	left: 0;
+	position: fixed;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.NotifyContentMobile {
+	display: none;
+}
+
+.Articles {
+	width: 100%;
+	display: flex;
+	padding-left: 40px;
+	padding-right: 40px;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	flex-flow: wrap;
+}
+
+.SecondBannerContainer {
+	padding-left: 80px;
+	padding-right: 80px;
+}
+
+.SecondBanner {
+	width: 100%;
+	background: linear-gradient(108.26deg, #db6115 10.3%, #e326dc 80.57%);
+	margin: 20px 0;
+	display: flex;
+	padding: 80px 40px;
+	justify-content: space-between;
+}
+
+.SecondBannerLeft {
+	display: flex;
+	flex-direction: column;
+}
+
+.BtnContent {
+	width: 100%;
+	margin-top: 30px;
+}
+
+.Discover {
+	font-weight: 100;
+	font-size: 25px;
+	color: #fff;
+}
+
+.Curated {
+	font-weight: 500;
+	font-size: 35px;
+	width: 395px;
+	color: #fff;
+	margin-bottom: 50px;
+	margin-top: 50px;
+}
+
+.Tailored {
+	font-weight: 100;
+	font-size: 20px;
+	color: #fff;
+}
+
+.SecondBannerMobileRight {
+	display: none;
+}
+
+.SecondBannerRight {
+	display: flex;
+	position: relative;
+	width: 400px;
+	height: 200px;
+}
+
+.CircleOne {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	background-color: blue;
+	position: absolute;
+	top: 30px;
+	left: 60px;
+}
+
+.CircleTwo {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	background-color: red;
+	position: absolute;
+	top: 30px;
+	right: 60px;
+}
+
+.CircleThree {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	border: 1px solid yellow;
+	position: absolute;
+	top: 100px;
+	right: 140px;
+}
+
+.Quote {
+	top: 250px;
+	position: absolute;
+	right: 40px;
+}
+
+.QuoteContent {
+	width: 295px;
+	text-align: center;
+}
+
+.QuoteMsg {
+	color: #fff;
+	font-weight: 200;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.QuoteName {
+	font-size: 13px;
+	color: #fff;
+	font-weight: 200;
+}
+
+.HomeFooter {
+	display: flex;
+	width: 100%;
+	justify-content: flex-start;
+	padding-top: 20px;
+	padding-left: 40px;
+}
+
+.HomeFooter p {
+	font-size: 15px;
+	color: rgba(103, 103, 103, 1);
+}
+
+@media screen and (max-width: 600px) {
+	.Home {
+		display: block;
+		position: none;
+	}
+
+	.Explore {
+		padding: 0 10px;
+	}
+
+	.ExploreTop {
+		font-size: 25px;
+		margin-bottom: 10px;
+	}
+
+	.ExploreBottom {
+		color: rgba(36, 41, 44, 0.5);
+		font-weight: 300;
+		font-size: 10px;
+	}
+
+	.SecondBannerContainer {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.SecondBanner {
+		width: 100%;
+		background: linear-gradient(108.26deg, #db6115 10.3%, #e326dc 80.57%);
+		margin: 20px 0;
+		display: flex;
+		flex-direction: column;
+		position: none;
+		padding: 20px 0;
+	}
+
+	.Quote {
+		top: 0;
+		position: none;
+		right: 0;
+	}
+
+	.SecondBannerLeft {
+		align-items: center;
+		margin-bottom: 10px;
+	}
+
+	.Discover,
+	.Tailored {
+		font-size: 15px;
+	}
+
+	.Curated {
+		font-weight: 200;
+		font-size: 25px;
+		width: 250px;
+		color: #fff;
+		margin-bottom: 20px;
+		margin-top: 20px;
+		align-self: center;
+	}
+
+	.BtnContent {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+	}
+
+	.SecondBannerRight {
+		display: none;
+	}
+
+	.SecondBannerMobileRight {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 25px 0;
+	}
+
+	.CircleFour {
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+		border: 1px solid yellow;
+	}
+
+	.QuoteContentMobile {
+		width: 100%;
+		text-align: center;
+	}
+
+	.QuoteMsgMobile {
+		width: 250px;
+		color: #fff;
+		margin: 10px 0;
+		font-size: 20px;
+	}
+
+	.QuoteNameMobile {
+		color: #fff;
+	}
+
+	.Articles {
+		padding: 0 10px;
+	}
+
+	.HomeFooter {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		padding-top: 10px;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.HomeFooter p {
+		font-size: 11px;
+	}
+
+	/* .NotifyContent {
+		position: fixed;
+	} */
+
+	/* .NotifyContentMobile {
+		display: flex;
+		padding: 0 10px;
+	} */
+}
+
+@media screen and (max-width: 960px) {
+	.Home {
+		display: block;
+	}
+
+	.ExploreTop {
+		font-size: 30px;
+		margin-bottom: 10px;
+	}
+
+	.ExploreBottom {
+		color: rgba(36, 41, 44, 0.5);
+		font-weight: 300;
+		font-size: 15px;
+	}
+
+	.Articles {
+		padding: 0 20px;
+	}
+
+	.SecondBannerContainer {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.SecondBanner {
+		padding: 80px 30px;
+	}
+
+	.CircleTwo {
+		right: 30px;
+	}
+
+	.CircleThree {
+		top: 120px;
+		right: 85px;
+	}
+	.Quote {
+		right: 20px;
+	}
+
+	/* .NotifyContent {
+		right: 50px;
+		border: 1px solid red;
+	}	
+   */
+	/* .NotifyContent {
+		left: 50px;
+		width: 100%;
+		border: 1px solid red;
+	} */
+}
+
+/* @media screen and (max-width: 992px) {
+	.Home {
+		display: block;
+	}
+
+	.ExploreTop {
+		font-size: 30px;
+		margin-bottom: 10px;
+	}
+
+	.ExploreBottom {
+		color: rgba(36, 41, 44, 0.5);
+		font-weight: 300;
+		font-size: 15px;
+	}
+
+	.Articles {
+		padding: 0 20px;
+	}
+
+	.SecondBannerContainer {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.SecondBanner {
+		padding: 80px 30px;
+	}
+
+	.CircleTwo {
+		right: 30px;
+	}
+
+	.CircleThree {
+		top: 120px;
+		right: 85px;
+	}
+	.Quote {
+		right: 20px;
+	}
+
+	.NotifyContent {
+		border: 1px solid red;
+		right: 50px;
+	}
+} */

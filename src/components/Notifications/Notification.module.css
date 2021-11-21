@@ -1,0 +1,67 @@
+.Success {
+	padding: 30px 50px;
+	background-color: teal;
+	color: #fff;
+	border: 1px solid teal;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.Error {
+	padding: 20px 50px;
+	width: 40%;
+	background-color: teal;
+	color: #fff;
+	border: 1px solid teal;
+	border-radius: 5px;
+}
+
+.Content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	justify-content: center;
+}
+
+.IconMsg {
+	display: flex;
+	margin-right: 10px;
+}
+
+.IconMsg {
+	font-size: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.IconMsg p {
+	margin-left: 5px;
+}
+
+@media screen and (max-width: 600px) {
+	.Content {
+		width: 100%;
+	}
+
+	.Success {
+		padding: 10px;
+	}
+
+	.IconMsg p {
+		font-size: 12px;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	.Content {
+		width: 100%;
+	}
+
+	.Success {
+		padding: 10px;
+	}
+
+	.IconMsg p {
+		font-size: 12px;
+	}
+}

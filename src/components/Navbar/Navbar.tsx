@@ -1,10 +1,24 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, {
+	FunctionComponent,
+	useState,
+	Dispatch,
+	SetStateAction,
+} from 'react';
 import { FaBookReader, FaBars } from 'react-icons/fa';
 import SearchBar from '../SearchBar/SearchBar';
 import classes from './Navbar.module.css';
 
-const Navbar: FunctionComponent = () => {
+type HomeProps = {
+	setToggleModal: Dispatch<SetStateAction<boolean>>;
+};
+
+const Navbar: FunctionComponent<HomeProps> = ({ setToggleModal }) => {
 	const [openBurger, setOpenBurger] = useState<boolean>(false);
+
+	const openAuthModel = () => {
+		setToggleModal((toggle) => !toggle);
+		setOpenBurger(false);
+	};
 
 	const handleToggle = () => {
 		setOpenBurger(!openBurger);
@@ -18,7 +32,8 @@ const Navbar: FunctionComponent = () => {
 				<div className={classes.AuthLink}>
 					<button
 						className={classes.AuthBtn}
-						onClick={() => console.log('HELLO')}
+						data-testid='open-signup-modal-btn'
+						onClick={openAuthModel}
 					>
 						Signup
 					</button>
@@ -28,10 +43,7 @@ const Navbar: FunctionComponent = () => {
 				</div>
 			) : (
 				<div className={`${classes.AuthLink} ${classes.Active}`}>
-					<button
-						className={classes.AuthBtn}
-						onClick={() => console.log('HELLO')}
-					>
+					<button className={classes.AuthBtn} onClick={openAuthModel}>
 						Signup
 					</button>
 					<button className={classes.AuthBtn}>
