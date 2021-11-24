@@ -1,13 +1,12 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { BeatLoader } from 'react-spinners';
-import { verifyUser } from '../../features/auth';
+import { verifyUser } from '../../features/authentication/authThunks';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import classes from './EmailVerification.module.css';
 
 const useQueryString = () => {
 	const location = useLocation();
-
 	return new URLSearchParams(location.search);
 };
 
@@ -16,7 +15,6 @@ const EmailVerification: FunctionComponent = () => {
 	const email = queryString.get('email');
 	const token = queryString.get('token');
 	const history = useHistory();
-
 	const dispatch = useDispatch();
 	const authenticated = useSelector((state: any) => state.auth.isAuthenticated);
 

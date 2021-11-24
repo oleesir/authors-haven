@@ -1,35 +1,33 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
-// import Article from '../../components/Articles/Article/Article';
 import Articles from '../../components/Articles/Articles';
 import Banner from '../../components/Banner/Banner';
 import SignupModal from '../../components/Modals/SignupModal/SignupModal';
+import LoginModal from '../../components/Modals/LoginModal/LoginModal';
 import GenericModal from '../../components/Modals/GenericModal/GenericModal';
 import Notification from '../../components/Notifications/Notification';
 import { useDispatch, useSelector } from 'react-redux';
-import classes from './UnloggedUser.module.css';
 import Button from '../../components/Button/Button';
 import { createNotification } from '../../features/notification';
+import { useHistory } from 'react-router-dom';
+import { AuthState } from '../../types/authTypes';
+import classes from './Welcome.module.css';
 
 interface IState {
-	auth: {
-		message: string;
-		isError: boolean;
-		isSuccess: boolean;
-		user: string | undefined;
-	};
+	auth: AuthState;
 }
 
-const UnloggedUser: FunctionComponent = () => {
+const Welcome: FunctionComponent = () => {
 	const dispatch = useDispatch();
-	const [toggleModal, setToggleModal] = useState<boolean>(false);
-
-	const { isSuccess } = useSelector((state: IState) => state.auth);
+	const history = useHistory();
+	const [toggleSignupModal, setToggleSignupModal] = useState<boolean>(false);
+	const [toggleLoginModal, setToggleLoginModal] = useState<boolean>(false);
+	const { isSuccess, isAuthenticated, isAuthenticating } = useSelector((state: IState) => state.auth);
 
 	useEffect(() => {
 		const getData = () => {
 			if (isSuccess === true) {
-				setToggleModal(false);
+				setToggleSignupModal(false);
 				dispatch(
 					createNotification({
 						message: 'verification mail',
@@ -41,13 +39,23 @@ const UnloggedUser: FunctionComponent = () => {
 		getData();
 	}, [isSuccess, dispatch]);
 
-	const openAuthModel = () => {
-		setToggleModal(true);
+	const openSignupModel = () => {
+		setToggleSignupModal(true);
+	};
+	const closeSignupModal = () => {
+		setToggleSignupModal(false);
+	};
+	const closeLoginModal = () => {
+		setToggleLoginModal(false);
 	};
 
-	const closeModal = () => {
-		setToggleModal(false);
-	};
+	if (isAuthenticating) {
+		return <p>'Loading'</p>;
+	}
+
+	if (isAuthenticated) {
+		history.push('/home');
+	}
 
 	return (
 		<div className={classes.Home}>
@@ -55,7 +63,7 @@ const UnloggedUser: FunctionComponent = () => {
 				<Notification />
 			</div>
 
-			<Navbar setToggleModal={setToggleModal} />
+			<Navbar setToggleSignupModal={setToggleSignupModal} setToggleLoginModal={setToggleLoginModal} />
 			<Banner />
 
 			<div className={classes.Explore}>
@@ -70,7 +78,7 @@ const UnloggedUser: FunctionComponent = () => {
 						<p className={classes.Curated}>Curated stories based on your selection</p>
 						<p className={classes.Tailored}>Top stories tailored to meet your needs.</p>
 						<div className={classes.BtnContent}>
-							<Button btnTypes='JoinBtn' disabled={undefined} sizes={''} onClick={openAuthModel} type='button'>
+							<Button btnTypes='JoinBtn' disabled={undefined} sizes={''} onClick={openSignupModel} type='button'>
 								Join 1KbIdeas
 							</Button>
 						</div>
@@ -101,13 +109,19 @@ const UnloggedUser: FunctionComponent = () => {
 			<div className={classes.HomeFooter}>
 				<p>© 2021 Olisa Emodi</p>
 			</div>
-			{toggleModal && (
+			{toggleSignupModal && (
 				<GenericModal>
-					<SignupModal closeModal={closeModal} />
+					<SignupModal closeModal={closeSignupModal} />
+				</GenericModal>
+			)}
+
+			{toggleLoginModal && (
+				<GenericModal>
+					<LoginModal closeModal={closeLoginModal} />
 				</GenericModal>
 			)}
 		</div>
 	);
 };
 
-export default UnloggedUser;
+export default Welcome;

@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute: FunctionComponent<{
@@ -6,7 +7,17 @@ const PrivateRoute: FunctionComponent<{
 	path: string;
 	exact: boolean;
 }> = ({ path, exact, component }) => {
-	return 'condition' ? <Route path={path} exact={exact} component={component} /> : <Redirect to='/' />;
+	const { isAuthenticated, isAuthenticating } = useSelector((state: any) => state.auth);
+
+	if (isAuthenticating) {
+		return <p>'Loading'</p>;
+	}
+
+	if (!isAuthenticated) {
+		return <Redirect to='/' />;
+	}
+
+	return <Route path={path} exact={exact} component={component} />;
 };
 
 export default PrivateRoute;

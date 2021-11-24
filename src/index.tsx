@@ -4,6 +4,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from '././store';
+import { loggedIn } from './features/authentication/authThunks';
+
+store.dispatch(loggedIn());
 
 ReactDOM.render(
 	<React.StrictMode>

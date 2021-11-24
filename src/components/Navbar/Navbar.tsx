@@ -1,22 +1,24 @@
-import React, {
-	FunctionComponent,
-	useState,
-	Dispatch,
-	SetStateAction,
-} from 'react';
+import React, { FunctionComponent, useState, Dispatch, SetStateAction } from 'react';
 import { FaBookReader, FaBars } from 'react-icons/fa';
 import SearchBar from '../SearchBar/SearchBar';
+import Button from '../Button/Button';
 import classes from './Navbar.module.css';
 
 type HomeProps = {
-	setToggleModal: Dispatch<SetStateAction<boolean>>;
+	setToggleSignupModal: Dispatch<SetStateAction<boolean>>;
+	setToggleLoginModal: Dispatch<SetStateAction<boolean>>;
 };
 
-const Navbar: FunctionComponent<HomeProps> = ({ setToggleModal }) => {
+const Navbar: FunctionComponent<HomeProps> = ({ setToggleSignupModal, setToggleLoginModal }) => {
 	const [openBurger, setOpenBurger] = useState<boolean>(false);
 
-	const openAuthModel = () => {
-		setToggleModal((toggle) => !toggle);
+	const openSignupModal = () => {
+		setToggleSignupModal((toggle) => !toggle);
+		setOpenBurger(false);
+	};
+
+	const openLoginModal = () => {
+		setToggleLoginModal((toggle) => !toggle);
 		setOpenBurger(false);
 	};
 
@@ -30,25 +32,21 @@ const Navbar: FunctionComponent<HomeProps> = ({ setToggleModal }) => {
 			<SearchBar />
 			{!openBurger ? (
 				<div className={classes.AuthLink}>
-					<button
-						className={classes.AuthBtn}
-						data-testid='open-signup-modal-btn'
-						onClick={openAuthModel}
-					>
+					<Button btnTypes='AuthBtn' disabled={undefined} sizes={''} type='button' data-testid='open-signup-modal-btn' onClick={openSignupModal}>
 						Signup
-					</button>
-					<button className={classes.AuthBtn}>
-						<p>Login</p>
-					</button>
+					</Button>
+					<Button btnTypes='AuthBtn' disabled={undefined} sizes={''} type='button' data-testid='open-login-modal-btn' onClick={openLoginModal}>
+						Login
+					</Button>
 				</div>
 			) : (
 				<div className={`${classes.AuthLink} ${classes.Active}`}>
-					<button className={classes.AuthBtn} onClick={openAuthModel}>
+					<Button btnTypes='AuthBtn' disabled={undefined} sizes={''} type='button' onClick={openSignupModal}>
 						Signup
-					</button>
-					<button className={classes.AuthBtn}>
-						<p>Login</p>
-					</button>
+					</Button>
+					<Button btnTypes='AuthBtn' disabled={undefined} sizes={''} type='button' onClick={openLoginModal}>
+						Login
+					</Button>
 				</div>
 			)}
 

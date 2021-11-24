@@ -28,6 +28,7 @@
 	border-radius: 8px;
 	outline: none;
 	background-color: transparent;
+	color: #fff;
 }
 
 .AuthBtn:hover {
@@ -41,6 +42,12 @@
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+	.AuthLink {
+		color: #fff;
+	}
 }
 
 @media screen and (max-width: 960px) {
@@ -61,6 +68,7 @@
 		transform: translateY(-170%);
 		transition: 0.3s ease-in;
 		border: 0.5px solid rgba(253, 130, 52, 1);
+		color: #fff;
 	}
 
 	.Active {

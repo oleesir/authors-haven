@@ -4,20 +4,32 @@ import { useForm } from 'react-hook-form';
 import Button from '../../Button/Button';
 import { FiX } from 'react-icons/fi';
 import { clearServerMessage } from '../../../features/authentication/auth';
-import { signupUser } from '../../../features/authentication/authThunks';
+import { loginUser } from '../../../features/authentication/authThunks';
 import { useDispatch, useSelector } from 'react-redux';
-import classes from './SignupModal.module.css';
-import { HomeProps, IState, SignupInput } from '../../../types/authTypes';
+import { useHistory } from 'react-router-dom';
+import { LoginInput, IState, HomeProps } from '../../../types/authTypes';
+import classes from './LoginModal.module.css';
 
-const SignupModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
+const LoginModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 	const dispatch = useDispatch();
+	const history = useHistory();
+	const authenticated = useSelector((state: any) => state.auth.isAuthenticated);
+
+	useEffect(() => {
+		const getData = () => {
+			if (authenticated) {
+				history.push('/home');
+			}
+		};
+		return getData();
+	}, [history, authenticated]);
 
 	const {
 		register,
 		handleSubmit,
 		setValue,
 		formState: { errors },
-	} = useForm<SignupInput>({ mode: 'onBlur' });
+	} = useForm<LoginInput>({ mode: 'onBlur' });
 
 	const [loading, setLoading] = useState<boolean>(false);
 	const { message, isError, isSuccess } = useSelector((state: IState) => state.auth);
@@ -25,8 +37,6 @@ const SignupModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 	useEffect(() => {
 		const getData = () => {
 			if (isSuccess === true) {
-				setValue('firstName', '');
-				setValue('lastName', '');
 				setValue('email', '');
 				setValue('password', '');
 			}
@@ -37,7 +47,7 @@ const SignupModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 	const submitForm = async (data: any) => {
 		setLoading(true);
 		if (data) {
-			dispatch(signupUser(data));
+			dispatch(loginUser(data));
 		}
 		setLoading(false);
 	};
@@ -55,10 +65,8 @@ const SignupModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 				<p className={classes.TopMessage} data-testid='share'>
 					Share your stories
 				</p>
-				<p className={classes.MidMessage}>Create your free Account</p>
-				<p className={classes.BottomMessage}>
-					We will need your details for setting up your account to serve you more personalized stories from creatives
-				</p>
+				<p className={classes.MidMessage}>Welcome back</p>
+				<p className={classes.BottomMessage}>Sign into your account to serve you more personerlized stories from creatives.</p>
 			</div>
 			<div className={classes.RightMessageContent}>
 				<div className={classes.TopBtn}>
@@ -77,55 +85,6 @@ const SignupModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 					<div className={classes.ErrorMessageContent}>{isError === true && <p className={classes.ErrorMessage}>{message}</p>}</div>
 					<div className={classes.AuthForm}>
 						<form onSubmit={handleSubmit(submitForm)}>
-							<div className={classes.InputFieldContainer}>
-								<input
-									aria-label='firstName'
-									id='firstName'
-									className={classes.InputField}
-									type='text'
-									{...register('firstName', {
-										required: 'First name is required',
-										pattern: {
-											value: /^[a-zA-Z_ ]*$/i,
-											message: 'First name should contain only letters',
-										},
-									})}
-									onChange={(event) => {
-										handleChange(event);
-									}}
-									placeholder={'Firstname'}
-								/>
-
-								{errors.firstName && (
-									<span data-testid='firstname-error' className={classes.InputFieldErrors}>
-										{errors.firstName?.message}
-									</span>
-								)}
-							</div>
-
-							<div className={classes.InputFieldContainer}>
-								<input
-									aria-label='lastName'
-									data-testid='lastname'
-									className={classes.InputField}
-									type='text'
-									{...register('lastName', {
-										required: 'Last name is required',
-										pattern: {
-											value: /^[a-zA-Z_ ]*$/i,
-											message: 'Last name should contain only letters',
-										},
-									})}
-									onChange={handleChange}
-									placeholder={'Lastname'}
-								/>
-								{errors.lastName && (
-									<span className={classes.InputFieldErrors} data-testid='lastname-error'>
-										{errors.lastName?.message}
-									</span>
-								)}
-							</div>
-
 							<div className={classes.InputFieldContainer}>
 								{' '}
 								<input
@@ -175,10 +134,9 @@ const SignupModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 									</span>
 								)}
 							</div>
-
 							<div className={classes.AuthBtnContent}>
 								<Button btnTypes='SubmitModalBtn' disabled={loading} sizes={''} onClick={submitForm} type='submit'>
-									Signup
+									<p>Login</p>
 								</Button>
 							</div>
 						</form>
@@ -189,4 +147,4 @@ const SignupModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 	);
 };
 
-export default SignupModal;
+export default LoginModal;
