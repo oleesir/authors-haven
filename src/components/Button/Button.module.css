@@ -1,11 +1,12 @@
-.SignupBtn {
-	padding: 10px 20px;
+.SubmitModalBtn {
+	padding: 15px 25px;
 	background-color: #ff8300;
 	outline: none;
 	cursor: pointer;
 	border: none;
 	color: #fff;
 	border-radius: 5px;
+	font-size: 16px;
 }
 
 .CloseBtn {
@@ -25,9 +26,34 @@
 	border: none;
 }
 
+.AuthBtn {
+	padding: 15px 25px;
+	border: none;
+	cursor: pointer;
+	font-size: 18px;
+	text-align: center;
+	border-radius: 8px;
+	outline: none;
+	background-color: transparent;
+}
+
+.AuthBtn:hover {
+	color: #fd8234;
+	transition: 0.5s all ease-out;
+}
+
 @media screen and (max-width: 600px) {
-	.SignupBtn {
+	.AuthBtn {
+		color: #fff;
 		width: 100%;
+		border: 1px solid #fff;
+		border-radius: 0;
+	}
+
+	.SubmitModalBtn {
+		width: 100%;
+		padding: 20px;
+		font-size: 15px;
 	}
 
 	.JoinBtn {

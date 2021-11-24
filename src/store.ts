@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authSlice from './features/auth';
+import authSlice from './features/authentication/auth';
 import notificationSlice from './features/notification';
 
 export const store = configureStore({

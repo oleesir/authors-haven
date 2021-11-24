@@ -35,12 +35,8 @@ const Notification: FunctionComponent = () => {
 		setShow(false);
 	};
 
-	const notificationType =
-		newNotifications.type === 'success' ? 'Success' : 'Error';
-	const notificationMsg =
-		newNotifications.message === 'verification mail'
-			? 'A verification mail has been sent to your email address.'
-			: 'Error';
+	const notificationType = newNotifications.type === 'success' ? 'Success' : 'Error';
+	const notificationMsg = newNotifications.message === 'verification mail' ? 'A verification mail has been sent to your email address.' : 'Error';
 	return (
 		<>
 			{show && (

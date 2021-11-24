@@ -9,6 +9,11 @@ const AuthService = {
 			withCredentials: true,
 		});
 	},
+	signinUser(formData: any) {
+		return axios.post('/auth/signin', formData, {
+			withCredentials: true,
+		});
+	},
 	loggedIn() {
 		return axios.get('/auth/loggedin', {
 			withCredentials: true,
