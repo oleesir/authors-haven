@@ -5,19 +5,13 @@ const AuthService = {
 		return axios.post('/auth/signup', formData);
 	},
 	verifyToken(formData: any) {
-		return axios.post('/auth/verification', formData, {
-			withCredentials: true,
-		});
+		return axios.post('/auth/verification', formData);
 	},
 	signinUser(formData: any) {
-		return axios.post('/auth/signin', formData, {
-			withCredentials: true,
-		});
+		return axios.post('/auth/signin', formData);
 	},
 	loggedIn() {
-		return axios.get('/auth/loggedin', {
-			withCredentials: true,
-		});
+		return axios.get('/auth/loggedin');
 	},
 };
 
