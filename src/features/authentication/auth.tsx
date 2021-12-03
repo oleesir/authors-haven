@@ -11,7 +11,6 @@ export const initialState: AuthState = {
 	isSuccess: false,
 	errorMessage: '',
 	isVerified: false,
-	loggedIn: false,
 	isAuthenticating: false,
 };
 
@@ -51,6 +50,15 @@ export const loadUser = createAsyncThunk('users/loggedin', async (_, { rejectWit
 	}
 });
 
+export const logoutUser = createAsyncThunk('users/logout', async (_, { rejectWithValue }) => {
+	try {
+		const res = await AuthService.logout();
+		return res.data.data;
+	} catch (err) {
+		return rejectWithValue((err as AxiosError)?.response?.data);
+	}
+});
+
 const authSlice = createSlice({
 	name: 'auth',
 	initialState,
@@ -74,6 +82,7 @@ const authSlice = createSlice({
 		builder.addCase(signupUser.pending, (state) => {
 			state.isError = false;
 			state.isAuthenticating = true;
+
 			return state;
 		});
 
@@ -111,16 +120,13 @@ const authSlice = createSlice({
 			state.isAuthenticating = false;
 			// @ts-ignore ignoring this for now
 			state.errorMessage = action.payload.error;
-
 			return state;
 		});
 
 		builder.addCase(loginUser.fulfilled, (state, action: PayloadAction<UserInfo>) => {
 			state.user = action.payload;
 			state.isAuthenticated = true;
-			state.isVerified = true;
 			state.isError = false;
-			state.loggedIn = true;
 			state.isAuthenticating = false;
 			state.isSuccess = true;
 			return state;
@@ -128,43 +134,30 @@ const authSlice = createSlice({
 
 		builder.addCase(loginUser.pending, (state) => {
 			state.isAuthenticated = false;
-			state.isVerified = false;
 			state.isError = false;
-			state.loggedIn = false;
 			state.isAuthenticating = true;
-
 			return state;
 		});
 
 		builder.addCase(loginUser.rejected, (state, action) => {
 			state.isAuthenticated = false;
 			state.isError = true;
-			state.isVerified = false;
-			state.loggedIn = false;
 			state.isAuthenticating = false;
-
-			// @ts-ignore ignoring this for now
-			state.errorMessage = action.payload.error;
-
+			state.errorMessage = (action.payload as AxiosErrorPayload).error;
 			return state;
 		});
 
 		builder.addCase(loadUser.fulfilled, (state, action: PayloadAction<UserInfo>) => {
 			state.user = action.payload;
-			state.isAuthenticated = true;
-			state.isVerified = true;
+			state.isAuthenticated = !!action.payload;
 			state.isError = false;
-			state.loggedIn = true;
 			state.isAuthenticating = false;
-
 			return state;
 		});
 
 		builder.addCase(loadUser.pending, (state) => {
 			state.isAuthenticated = false;
-			state.isVerified = false;
 			state.isError = false;
-			state.loggedIn = false;
 			state.isAuthenticating = true;
 			return state;
 		});
@@ -172,11 +165,35 @@ const authSlice = createSlice({
 		builder.addCase(loadUser.rejected, (state, action) => {
 			state.isAuthenticated = false;
 			state.isError = true;
-			state.isVerified = false;
-			state.loggedIn = false;
 			state.isAuthenticating = false;
-			// state.errorMessage = (action.payload as AxiosErrorPayload).error
+			// state.errorMessage = (action.payload as AxiosErrorPayload).error;
 
+			return state;
+		});
+
+		builder.addCase(logoutUser.fulfilled, (state, action: PayloadAction<UserInfo>) => {
+			state.user = action.payload;
+			state.isAuthenticated = false;
+			state.isError = false;
+			state.isSuccess = false;
+			state.isAuthenticating = false;
+
+			return state;
+		});
+
+		builder.addCase(logoutUser.pending, (state) => {
+			state.isAuthenticated = false;
+			state.isError = false;
+			state.isAuthenticating = true;
+
+			return state;
+		});
+
+		builder.addCase(logoutUser.rejected, (state, action) => {
+			state.isAuthenticated = false;
+			state.isError = true;
+			state.isAuthenticating = false;
+			// state.errorMessage = (action.payload as AxiosErrorPayload).error;
 			return state;
 		});
 	},

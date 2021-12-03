@@ -22,6 +22,7 @@ import authSlice, {
 	verifyUser,
 	clearServerMessage,
 	loadUser,
+	logoutUser,
 } from '../features/authentication/auth';
 import axios from '../axios';
 
@@ -192,7 +193,7 @@ describe('Authentication', () => {
 				fireEvent.submit(screen.getByTestId('signup-modal-btn'));
 
 				await waitForElementToBeRemoved(screen.getByTestId('signup-modal'));
-				await screen.findByText('A verification mail has been sent to your email address.');
+				// await screen.findByText('A verification mail has been sent to your email address.');
 				await waitFor(() => expect(axios.post).toHaveBeenCalledTimes(1));
 				await waitFor(() =>
 					expect(axios.post).toHaveBeenCalledWith('/auth/signup', {
@@ -420,6 +421,7 @@ describe('Authentication', () => {
 			expect(nextState).toStrictEqual({
 				...initialState,
 				isAuthenticating: true,
+				isError: false,
 			});
 		});
 
@@ -495,10 +497,8 @@ describe('Authentication', () => {
 				user: fulfilledAction.payload,
 				isError: false,
 				isSuccess: true,
-				isVerified: true,
 				isAuthenticating: false,
 				isAuthenticated: true,
-				loggedIn: true,
 			});
 		});
 
@@ -517,10 +517,11 @@ describe('Authentication', () => {
 
 			expect(pendingAction.type).toEqual('users/signin/pending');
 			expect(pendingAction.payload).toEqual(undefined);
-
 			expect(nextState).toStrictEqual({
 				...initialState,
 				isAuthenticating: true,
+				isAuthenticated: false,
+				isError: false,
 			});
 		});
 
@@ -598,123 +599,176 @@ describe('Authentication', () => {
 				isAuthenticating: false,
 			});
 		});
-	});
 
-	it('verifyUser.pending', () => {
-		const pendingAction = verifyUser.pending(
-			// mock request id string
-			'6537yu2hf',
-			// mock parameter to signupUser thunk
-			{
-				email: 'sevahe7418@latovic.com',
-				token: 'any',
-			},
-		);
+		it('verifyUser.pending', () => {
+			const pendingAction = verifyUser.pending(
+				// mock request id string
+				'6537yu2hf',
+				// mock parameter to signupUser thunk
+				{
+					email: 'sevahe7418@latovic.com',
+					token: 'any',
+				},
+			);
 
-		const nextState = authSlice(initialState, pendingAction);
+			const nextState = authSlice(initialState, pendingAction);
 
-		expect(pendingAction.type).toEqual('users/verification/pending');
-		expect(pendingAction.payload).toEqual(undefined);
-		expect(nextState).toStrictEqual({
-			...initialState,
-			isAuthenticated: false,
-			isVerified: false,
-			isError: false,
-			isAuthenticating: true,
+			expect(pendingAction.type).toEqual('users/verification/pending');
+			expect(pendingAction.payload).toEqual(undefined);
+			expect(nextState).toStrictEqual({
+				...initialState,
+				isAuthenticated: false,
+				isVerified: false,
+				isError: false,
+				isAuthenticating: true,
+			});
 		});
-	});
 
-	it('verifyuser.rejected', () => {
-		const rejectedAction = verifyUser.rejected(
-			// error is null because we are handling rejected value manually with `rejectWithValue`
-			null,
-			// mock request id string
-			'6537yu2hf',
-			// mock parameter to signupUser thunk
-			{
-				email: 'sevahe7418@latovic.com',
-				token: 'any',
-			},
-			{ status: 'failure', error: 'error message from request' },
-		);
+		it('verifyuser.rejected', () => {
+			const rejectedAction = verifyUser.rejected(
+				// error is null because we are handling rejected value manually with `rejectWithValue`
+				null,
+				// mock request id string
+				'6537yu2hf',
+				// mock parameter to signupUser thunk
+				{
+					email: 'sevahe7418@latovic.com',
+					token: 'any',
+				},
+				{ status: 'failure', error: 'error message from request' },
+			);
 
-		const nextState = authSlice(initialState, rejectedAction);
+			const nextState = authSlice(initialState, rejectedAction);
 
-		expect(rejectedAction.type).toEqual('users/verification/rejected');
-		expect(rejectedAction.error).toEqual({ message: 'Rejected' });
-		expect(rejectedAction.payload).toEqual({ status: 'failure', error: 'error message from request' });
+			expect(rejectedAction.type).toEqual('users/verification/rejected');
+			expect(rejectedAction.error).toEqual({ message: 'Rejected' });
+			expect(rejectedAction.payload).toEqual({ status: 'failure', error: 'error message from request' });
 
-		expect(nextState).toStrictEqual({
-			...initialState,
-			isAuthenticated: false,
-			isError: true,
-			isVerified: false,
-			isAuthenticating: false,
-			errorMessage: 'error message from request',
+			expect(nextState).toStrictEqual({
+				...initialState,
+				isAuthenticated: false,
+				isError: true,
+				isVerified: false,
+				isAuthenticating: false,
+				errorMessage: 'error message from request',
+			});
 		});
-	});
 
-	it('loadUser.fulfilled', () => {
-		const fulfilledAction = loadUser.fulfilled(
-			// error is null because we are handling rejected value manually with `rejectWithValue`
-			null,
-			// mock request id string
-			'6537yu2hf',
-		);
+		it('loadUser.fulfilled', () => {
+			const fulfilledAction = loadUser.fulfilled(
+				// error is null because we are handling rejected value manually with `rejectWithValue`
+				null,
+				// mock request id string
+				'6537yu2hf',
+			);
 
-		const nextState = authSlice(initialState, fulfilledAction);
+			const nextState = authSlice(initialState, fulfilledAction);
 
-		expect(fulfilledAction.type).toEqual('users/loggedin/fulfilled');
-		expect(fulfilledAction.payload).toEqual(null);
-		expect(nextState).toStrictEqual({
-			...initialState,
-			isAuthenticated: true,
-			isVerified: true,
-			isError: false,
-			isAuthenticating: false,
-			loggedIn: true,
+			expect(fulfilledAction.type).toEqual('users/loggedin/fulfilled');
+			expect(fulfilledAction.payload).toEqual(null);
+			expect(nextState).toStrictEqual({
+				...initialState,
+				isAuthenticated: false,
+				isError: false,
+				isAuthenticating: false,
+			});
 		});
-	});
 
-	it('loadUser.pending', () => {
-		const fulfilledAction = loadUser.pending(
-			// mock request id string
-			'6537yu2hf',
-		);
+		it('loadUser.pending', () => {
+			const fulfilledAction = loadUser.pending(
+				// mock request id string
+				'6537yu2hf',
+			);
 
-		const nextState = authSlice(initialState, fulfilledAction);
+			const nextState = authSlice(initialState, fulfilledAction);
 
-		expect(fulfilledAction.type).toEqual('users/loggedin/pending');
-		expect(fulfilledAction.payload).toEqual(undefined);
-		expect(nextState).toStrictEqual({
-			...initialState,
-			isAuthenticated: false,
-			isError: false,
-			isAuthenticating: true,
-			isVerified: false,
-			loggedIn: false,
+			expect(fulfilledAction.type).toEqual('users/loggedin/pending');
+			expect(fulfilledAction.payload).toEqual(undefined);
+			expect(nextState).toStrictEqual({
+				...initialState,
+				isAuthenticated: false,
+				isError: false,
+				isAuthenticating: true,
+			});
 		});
-	});
 
-	it('loadUser.rejected', () => {
-		const fulfilledAction = loadUser.rejected(
-			// error is null because we are handling rejected value manually with `rejectWithValue`
-			null,
-			// mock request id string
-			'6537yu2hf',
-		);
+		it('loadUser.rejected', () => {
+			const fulfilledAction = loadUser.rejected(
+				// error is null because we are handling rejected value manually with `rejectWithValue`
+				null,
+				// mock request id string
+				'6537yu2hf',
+			);
 
-		const nextState = authSlice(initialState, fulfilledAction);
+			const nextState = authSlice(initialState, fulfilledAction);
 
-		expect(fulfilledAction.type).toEqual('users/loggedin/rejected');
-		expect(fulfilledAction.payload).toEqual(undefined);
-		expect(nextState).toStrictEqual({
-			...initialState,
-			isAuthenticated: false,
-			isVerified: false,
-			isError: true,
-			isAuthenticating: false,
-			loggedIn: false,
+			expect(fulfilledAction.type).toEqual('users/loggedin/rejected');
+			expect(fulfilledAction.payload).toEqual(undefined);
+			expect(nextState).toStrictEqual({
+				...initialState,
+				isAuthenticated: false,
+				isError: true,
+				isAuthenticating: false,
+			});
+		});
+
+		it('logoutUser.fulfilled', () => {
+			const fulfilledAction = logoutUser.fulfilled(
+				// error is null because we are handling rejected value manually with `rejectWithValue`
+				null,
+				// mock request id string
+				'6537yu2hf',
+			);
+
+			const nextState = authSlice(initialState, fulfilledAction);
+
+			expect(fulfilledAction.type).toEqual('users/logout/fulfilled');
+			expect(fulfilledAction.payload).toEqual(null);
+			expect(nextState).toStrictEqual({
+				...initialState,
+				isAuthenticated: false,
+				isError: false,
+				isSuccess: false,
+				isAuthenticating: false,
+			});
+		});
+
+		it('logout.pending', () => {
+			const fulfilledAction = logoutUser.pending(
+				// mock request id string
+				'6537yu2hf',
+			);
+
+			const nextState = authSlice(initialState, fulfilledAction);
+
+			expect(fulfilledAction.type).toEqual('users/logout/pending');
+			expect(fulfilledAction.payload).toEqual(undefined);
+			expect(nextState).toStrictEqual({
+				...initialState,
+				isAuthenticated: false,
+				isError: false,
+				isAuthenticating: true,
+			});
+		});
+
+		it('logoutUser.rejected', () => {
+			const fulfilledAction = logoutUser.rejected(
+				// error is null because we are handling rejected value manually with `rejectWithValue`
+				null,
+				// mock request id string
+				'6537yu2hf',
+			);
+
+			const nextState = authSlice(initialState, fulfilledAction);
+
+			expect(fulfilledAction.type).toEqual('users/logout/rejected');
+			expect(fulfilledAction.payload).toEqual(undefined);
+			expect(nextState).toStrictEqual({
+				...initialState,
+				isAuthenticated: false,
+				isError: true,
+				isAuthenticating: false,
+			});
 		});
 	});
 });
