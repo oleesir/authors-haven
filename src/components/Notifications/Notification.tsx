@@ -2,6 +2,7 @@ import React, { useEffect, useState, FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 import { FaCheckCircle, FaRegTimesCircle } from 'react-icons/fa';
 import classes from './Notification.module.css';
+import { notificationMessages, notificationValue } from '../../constants';
 
 type toastObject = {
 	message: string;
@@ -16,8 +17,11 @@ const Notification: FunctionComponent = () => {
 		type: '',
 		message: '',
 	});
+
 	const [show, setShow] = useState(false);
 	const { notifications } = useSelector((state: IState) => state.notify);
+
+	let notificationMsg;
 
 	useEffect(() => {
 		const getData = () => {
@@ -36,17 +40,32 @@ const Notification: FunctionComponent = () => {
 	};
 
 	const notificationType = newNotifications.type === 'success' ? 'Success' : 'Error';
-	const notificationMsg = newNotifications.message === 'verification mail' ? 'A verification mail has been sent to your email address.' : 'Error';
+
+	switch (newNotifications.message) {
+		case notificationValue.FORGOTPASSWORD:
+			notificationMsg = notificationMessages.FORGETPASSWORDMAIL;
+			break;
+		case notificationValue.VERIFYEMAIL:
+			notificationMsg = notificationMessages.VERIFICATIONMAIL;
+			break;
+		case notificationValue.RESETPASSWORD:
+			notificationMsg = notificationMessages.RESETPASSWORDMAIL;
+			break;
+
+		default:
+			break;
+	}
+
 	return (
 		<>
 			{show && (
 				<div className={classes[notificationType]}>
 					<div className={classes.Content}>
+						<FaCheckCircle size={'1.5em'} />
 						<div className={classes.IconMsg}>
-							<FaCheckCircle size={'1.1em'} />
 							<p>{notificationMsg}</p>
 						</div>
-						<FaRegTimesCircle size={'1.2em'} onClick={onClose} />
+						<FaRegTimesCircle size={'1.5em'} onClick={onClose} />
 					</div>
 				</div>
 			)}

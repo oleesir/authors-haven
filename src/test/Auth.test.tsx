@@ -13,7 +13,7 @@ import { Provider } from 'react-redux';
 import { store } from '../store';
 import { createMemoryHistory } from 'history';
 import Welcome from '../pages/Welcome/Welcome';
-import { Router } from 'react-router-dom';
+import { BrowserRouter, Router } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import authSlice, {
 	initialState,
@@ -23,10 +23,16 @@ import authSlice, {
 	clearServerMessage,
 	loadUser,
 	logoutUser,
+	forgotPassword,
 } from '../features/authentication/auth';
 import axios from '../axios';
 
-const render = (component: {} | null | undefined) => rtlRender(<Provider store={store}>{component}</Provider>);
+const render = (component: {} | null | undefined) =>
+	rtlRender(
+		<BrowserRouter>
+			<Provider store={store}>{component}</Provider>
+		</BrowserRouter>,
+	);
 
 //jest.mock(...) is used to automatically mock the axios module.jest.mock('axios');
 jest.mock('../axios', () => ({
@@ -545,6 +551,90 @@ describe('Authentication', () => {
 			expect(rejectedAction.error).toEqual({ message: 'Rejected' });
 			expect(rejectedAction.payload).toEqual({ status: 'failure', error: 'error message from request' });
 
+			expect(nextState).toStrictEqual({
+				...initialState,
+				isAuthenticating: false,
+				isError: true,
+				errorMessage: 'error message from request',
+			});
+		});
+
+		it('forgotPassword.fulfilled', () => {
+			const user = {
+				email: 'sevahe7418@latovic.com',
+				firstName: 'olisa',
+				id: 'f947f8fe-4917-4f93-93da-64cde0868a0d',
+				isVerified: true,
+				lastName: 'emodi',
+				passwordResetToken: null,
+				passwordTokenExpiry: null,
+				role: 'user',
+			};
+
+			const fulfilledAction = forgotPassword.fulfilled(
+				// mock response from thunk
+				undefined,
+				// mock request id string
+				'6537yu2hf',
+				// mock parameter to signinUser thunk
+				{
+					email: 'sevahe7418@latovic.com',
+				},
+			);
+
+			const nextState = authSlice(initialState, fulfilledAction);
+			expect(fulfilledAction.type).toEqual('users/forgotpassword/fulfilled');
+			expect(fulfilledAction.payload).toEqual(undefined);
+			expect(nextState).toStrictEqual({
+				...initialState,
+				user: fulfilledAction.payload,
+				isError: false,
+				isSuccess: true,
+				isAuthenticating: false,
+			});
+		});
+
+		it('forgotPassword.pending', () => {
+			const pendingAction = forgotPassword.pending(
+				// mock request id string
+				'6537yu2hf',
+				// mock parameter to signinUser thunk
+				{
+					email: 'sevahe7418@latovic.com',
+				},
+			);
+
+			const nextState = authSlice(initialState, pendingAction);
+
+			expect(pendingAction.type).toEqual('users/forgotpassword/pending');
+			expect(pendingAction.payload).toEqual(undefined);
+			expect(nextState).toStrictEqual({
+				...initialState,
+				isAuthenticating: true,
+				isSuccess: false,
+				isError: false,
+			});
+		});
+
+		it('forgotPassword.rejected', () => {
+			const rejectedAction = forgotPassword.rejected(
+				// error is null because we are handling rejected value manually with `rejectWithValue`
+				null,
+				// mock request id string
+				'6537yu2hf',
+				// mock parameter to signupUser thunk
+				{
+					email: 'sevahe7418@latovic.com',
+				},
+				undefined,
+				// { status: 'failure', error: 'error message from request' },
+			);
+
+			const nextState = authSlice(initialState, rejectedAction);
+
+			expect(rejectedAction.type).toEqual('users/forgotpassword/rejected');
+			expect(rejectedAction.error.message).toEqual({ email: 'Rejected' });
+			expect(rejectedAction.payload).toEqual(undefined);
 			expect(nextState).toStrictEqual({
 				...initialState,
 				isAuthenticating: false,

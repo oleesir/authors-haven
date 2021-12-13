@@ -143,6 +143,20 @@
 	color: red;
 }
 
+.ForgotPass {
+	margin-top: 40px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	text-decoration: none;
+}
+
+.LinkContent {
+	color: #fd8234;
+	font-size: 14px;
+	text-decoration: none;
+}
+
 @media screen and (max-width: 600px) {
 	.Container {
 		display: flex;

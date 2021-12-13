@@ -17,6 +17,10 @@ export type LoginInfo = {
 	password: string | null;
 };
 
+export type EmailInfo = {
+	email: string | null;
+};
+
 export type AuthState = {
 	user: UserInfo | null;
 	isAuthenticated: boolean;
@@ -45,4 +49,10 @@ export type IState = {
 
 export type HomeProps = {
 	closeModal: MouseEventHandler<HTMLButtonElement> | undefined;
+};
+
+export type ResetPasswordInput = {
+	password: string;
+	confirmPassword: string;
+	token: string | null;
 };

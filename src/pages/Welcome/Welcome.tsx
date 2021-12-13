@@ -12,6 +12,8 @@ import { createNotification } from '../../features/notification';
 import { useHistory } from 'react-router-dom';
 import { AuthState } from '../../types/authTypes';
 import classes from './Welcome.module.css';
+import { notificationValue } from '../../constants';
+import { clearServerMessage } from '../../features/authentication/auth';
 
 interface IState {
 	auth: AuthState;
@@ -26,6 +28,16 @@ const Welcome: FunctionComponent = () => {
 	const { isSuccess, isAuthenticated, isAuthenticating } = useSelector((state: IState) => state.auth);
 
 	useEffect(() => {
+		if (isSuccess === true) {
+			const timer = setTimeout(() => {
+				clearServerMessage();
+				setCloseNotification(false);
+			}, 5000);
+			return () => clearTimeout(timer);
+		}
+	}, [isSuccess]);
+
+	useEffect(() => {
 		const getData = () => {
 			if (isSuccess === false) {
 				setCloseNotification(false);
@@ -37,17 +49,21 @@ const Welcome: FunctionComponent = () => {
 	useEffect(() => {
 		const getData = () => {
 			if (isSuccess === true) {
-				setToggleSignupModal(false);
 				dispatch(
 					createNotification({
-						message: 'verification mail',
+						message: notificationValue.VERIFYEMAIL,
 						type: 'success',
 					}),
 				);
+				setToggleSignupModal(false);
+
+				setCloseNotification(true);
 			}
 		};
 		getData();
 	}, [isSuccess, dispatch]);
+
+	console.log('🧨', isSuccess);
 
 	const openSignupModel = () => {
 		setToggleSignupModal(true);
