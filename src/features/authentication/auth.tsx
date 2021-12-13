@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthState, UserInfo, VerifyInfo, LoginInfo } from '../../types/authTypes';
+import { AuthState, UserInfo, VerifyInfo, LoginInfo, EmailInfo, ResetPasswordInput } from '../../types/authTypes';
 import AuthService from '../../services/auth.services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError, AxiosErrorPayload } from '../../axios';
@@ -40,6 +40,30 @@ export const loginUser = createAsyncThunk('users/signin', async (formData: Login
 		return rejectWithValue((err as AxiosError)?.response?.data);
 	}
 });
+
+export const forgotPassword = createAsyncThunk(
+	'users/forgotpassword',
+	async (formData: EmailInfo, { rejectWithValue }) => {
+		try {
+			const res = await AuthService.forgotPassword(formData);
+			return res.data.data;
+		} catch (err) {
+			return rejectWithValue((err as AxiosError)?.response?.data);
+		}
+	},
+);
+
+export const resetPassword = createAsyncThunk(
+	'users/resetpassword',
+	async (formData: ResetPasswordInput, { rejectWithValue }) => {
+		try {
+			const res = await AuthService.resetPassword(formData);
+			return res.data.data;
+		} catch (err) {
+			return rejectWithValue((err as AxiosError)?.response?.data);
+		}
+	},
+);
 
 export const loadUser = createAsyncThunk('users/loggedin', async (_, { rejectWithValue }) => {
 	try {
@@ -82,7 +106,6 @@ const authSlice = createSlice({
 		builder.addCase(signupUser.pending, (state) => {
 			state.isError = false;
 			state.isAuthenticating = true;
-
 			return state;
 		});
 
@@ -144,6 +167,51 @@ const authSlice = createSlice({
 			state.isError = true;
 			state.isAuthenticating = false;
 			state.errorMessage = (action.payload as AxiosErrorPayload).error;
+			return state;
+		});
+
+		builder.addCase(forgotPassword.fulfilled, (state, action: PayloadAction<UserInfo>) => {
+			state.user = action.payload;
+			state.isSuccess = true;
+			state.isError = false;
+			state.isAuthenticating = false;
+			return state;
+		});
+
+		builder.addCase(forgotPassword.pending, (state) => {
+			state.isError = false;
+			state.isSuccess = false;
+			state.isAuthenticating = true;
+			return state;
+		});
+
+		builder.addCase(forgotPassword.rejected, (state, action) => {
+			state.isError = true;
+			state.isAuthenticating = false;
+			state.errorMessage = (action.payload as AxiosErrorPayload<{ email: string }>).error.email;
+
+			return state;
+		});
+
+		builder.addCase(resetPassword.fulfilled, (state, action: PayloadAction<UserInfo>) => {
+			state.user = action.payload;
+			state.isSuccess = true;
+			state.isError = false;
+			state.isAuthenticating = false;
+			return state;
+		});
+
+		builder.addCase(resetPassword.pending, (state) => {
+			state.isError = false;
+			state.isSuccess = false;
+			state.isAuthenticating = true;
+			return state;
+		});
+
+		builder.addCase(resetPassword.rejected, (state, action) => {
+			state.isError = true;
+			state.isAuthenticating = false;
+			state.errorMessage = (action.payload as AxiosErrorPayload<{ password: string }>).error.password;
 			return state;
 		});
 

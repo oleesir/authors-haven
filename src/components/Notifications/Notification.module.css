@@ -1,11 +1,28 @@
 .Success {
-	padding: 30px 50px;
-	background-color: teal;
-	color: #fff;
-	border: 1px solid teal;
+	width: 40%;
+	padding: 30px;
 	border-radius: 5px;
 	cursor: pointer;
+	border: 1px solid #daf2dd;
+	background-color: #38b000;
+	word-wrap: normal;
+	color: #daf2dd;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+/* 
+.forgotPasswordSuccess {
+	width: 200px;
+	padding: 30px 50px;
+	border-radius: 5px;
+	cursor: pointer;
+	border: 1px solid #daf2dd;
+	background-color: #38b000;
+	word-wrap: normal;
+	color: #daf2dd;
+	font-size: 13px;
+} */
 
 .Error {
 	padding: 20px 50px;
@@ -17,25 +34,22 @@
 }
 
 .Content {
+	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
-	justify-content: center;
+	/* justify-content: center; */
 }
 
 .IconMsg {
-	display: flex;
-	margin-right: 10px;
-}
-
-.IconMsg {
-	font-size: 20px;
+	font-size: 14px;
 	display: flex;
 	justify-content: center;
+	line-height: 1.4;
 }
 
 .IconMsg p {
-	margin-left: 5px;
+	font-size: 18px;
 }
 
 @media screen and (max-width: 600px) {
@@ -44,7 +58,12 @@
 	}
 
 	.Success {
+		width: 80%;
 		padding: 10px;
+	}
+
+	.IconMsg {
+		margin-left: 10px;
 	}
 
 	.IconMsg p {

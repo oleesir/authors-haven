@@ -6,7 +6,7 @@ import { FiX } from 'react-icons/fi';
 import { clearServerMessage } from '../../../features/authentication/auth';
 import { loginUser } from '../../../features/authentication/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { LoginInput, IState, HomeProps } from '../../../types/authTypes';
 import classes from './LoginModal.module.css';
 
@@ -149,6 +149,11 @@ const LoginModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 								>
 									Login
 								</Button>
+							</div>
+							<div className={classes.ForgotPass}>
+								<Link to='/forgot_password' className={classes.LinkContent}>
+									Forgot your password?
+								</Link>
 							</div>
 						</form>
 					</div>
