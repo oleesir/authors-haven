@@ -13,3 +13,9 @@ export const notificationMessages = {
 export const notificationTypes = {
 	FORGETPASSWORDMAIL_SUCCESS: 'forgetPasswordSuccess',
 };
+
+export const HTTP_STATUS = Object.freeze({
+	PENDING: 'PENDING',
+	FULFILLED: 'FULFILLED',
+	REJECTED: 'REJECTED',
+});

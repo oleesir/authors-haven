@@ -9,6 +9,11 @@
 	font-size: 16px;
 }
 
+.SubmitModalBtn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
 .CloseBtn {
 	outline: none;
 	cursor: pointer;

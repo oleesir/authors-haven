@@ -23,6 +23,7 @@ export type EmailInfo = {
 
 export type AuthState = {
 	user: UserInfo | null;
+	loadingStatus: string;
 	isAuthenticated: boolean;
 	isError: boolean;
 	isSuccess: boolean;

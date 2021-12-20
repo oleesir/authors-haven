@@ -7,11 +7,11 @@ const PrivateRoute: FunctionComponent<{
 	path: string;
 	exact: boolean;
 }> = ({ path, exact, component }) => {
-	const { isAuthenticated, isAuthenticating } = useSelector((state: any) => state.auth);
+	const { isAuthenticated } = useSelector((state: any) => state.auth);
 
-	if (isAuthenticating) {
-		return <p>'Loading'</p>;
-	}
+	// if (isAuthenticating) {
+	// 	return <p>'Loading'</p>;
+	// }
 
 	if (!isAuthenticated) {
 		return <Redirect to='/' />;

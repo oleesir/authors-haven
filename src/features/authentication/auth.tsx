@@ -3,10 +3,12 @@ import { AuthState, UserInfo, VerifyInfo, LoginInfo, EmailInfo, ResetPasswordInp
 import AuthService from '../../services/auth.services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError, AxiosErrorPayload } from '../../axios';
+import { HTTP_STATUS } from '../../constants';
 
 export const initialState: AuthState = {
 	user: null,
 	isAuthenticated: false,
+	loadingStatus: '',
 	isError: false,
 	isSuccess: false,
 	errorMessage: '',
@@ -97,6 +99,7 @@ const authSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(signupUser.fulfilled, (state, action: PayloadAction<UserInfo>) => {
 			state.user = action.payload;
+			state.loadingStatus = HTTP_STATUS.FULFILLED;
 			state.isError = false;
 			state.isSuccess = true;
 			state.isAuthenticating = false;
@@ -104,6 +107,7 @@ const authSlice = createSlice({
 		});
 
 		builder.addCase(signupUser.pending, (state) => {
+			state.loadingStatus = HTTP_STATUS.PENDING;
 			state.isError = false;
 			state.isAuthenticating = true;
 			return state;
@@ -111,6 +115,7 @@ const authSlice = createSlice({
 
 		builder.addCase(signupUser.rejected, (state, action) => {
 			state.isError = true;
+			state.loadingStatus = HTTP_STATUS.REJECTED;
 			state.isAuthenticating = false;
 			state.errorMessage = (action.payload as AxiosErrorPayload).error;
 
@@ -148,6 +153,7 @@ const authSlice = createSlice({
 
 		builder.addCase(loginUser.fulfilled, (state, action: PayloadAction<UserInfo>) => {
 			state.user = action.payload;
+			state.loadingStatus = HTTP_STATUS.FULFILLED;
 			state.isAuthenticated = true;
 			state.isError = false;
 			state.isAuthenticating = false;
@@ -157,6 +163,7 @@ const authSlice = createSlice({
 
 		builder.addCase(loginUser.pending, (state) => {
 			state.isAuthenticated = false;
+			state.loadingStatus = HTTP_STATUS.PENDING;
 			state.isError = false;
 			state.isAuthenticating = true;
 			return state;
@@ -164,6 +171,7 @@ const authSlice = createSlice({
 
 		builder.addCase(loginUser.rejected, (state, action) => {
 			state.isAuthenticated = false;
+			state.loadingStatus = HTTP_STATUS.REJECTED;
 			state.isError = true;
 			state.isAuthenticating = false;
 			state.errorMessage = (action.payload as AxiosErrorPayload).error;
@@ -172,6 +180,7 @@ const authSlice = createSlice({
 
 		builder.addCase(forgotPassword.fulfilled, (state, action: PayloadAction<UserInfo>) => {
 			state.user = action.payload;
+			state.loadingStatus = HTTP_STATUS.FULFILLED;
 			state.isSuccess = true;
 			state.isError = false;
 			state.isAuthenticating = false;
@@ -179,6 +188,7 @@ const authSlice = createSlice({
 		});
 
 		builder.addCase(forgotPassword.pending, (state) => {
+			state.loadingStatus = HTTP_STATUS.PENDING;
 			state.isError = false;
 			state.isSuccess = false;
 			state.isAuthenticating = true;
@@ -186,6 +196,7 @@ const authSlice = createSlice({
 		});
 
 		builder.addCase(forgotPassword.rejected, (state, action) => {
+			state.loadingStatus = HTTP_STATUS.REJECTED;
 			state.isError = true;
 			state.isAuthenticating = false;
 			state.errorMessage = (action.payload as AxiosErrorPayload<{ email: string }>).error.email;
@@ -195,6 +206,7 @@ const authSlice = createSlice({
 
 		builder.addCase(resetPassword.fulfilled, (state, action: PayloadAction<UserInfo>) => {
 			state.user = action.payload;
+			state.loadingStatus = HTTP_STATUS.FULFILLED;
 			state.isSuccess = true;
 			state.isError = false;
 			state.isAuthenticating = false;
@@ -202,6 +214,7 @@ const authSlice = createSlice({
 		});
 
 		builder.addCase(resetPassword.pending, (state) => {
+			state.loadingStatus = HTTP_STATUS.PENDING;
 			state.isError = false;
 			state.isSuccess = false;
 			state.isAuthenticating = true;
@@ -209,6 +222,7 @@ const authSlice = createSlice({
 		});
 
 		builder.addCase(resetPassword.rejected, (state, action) => {
+			state.loadingStatus = HTTP_STATUS.REJECTED;
 			state.isError = true;
 			state.isAuthenticating = false;
 			state.errorMessage = (action.payload as AxiosErrorPayload<{ password: string }>).error.password;
