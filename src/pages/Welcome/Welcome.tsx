@@ -25,7 +25,7 @@ const Welcome: FunctionComponent = () => {
 	const [toggleSignupModal, setToggleSignupModal] = useState<boolean>(false);
 	const [toggleLoginModal, setToggleLoginModal] = useState<boolean>(false);
 	const [closeNotification, setCloseNotification] = useState<boolean>(false);
-	const { isSuccess, isAuthenticated, isAuthenticating } = useSelector((state: IState) => state.auth);
+	const { isSuccess, isAuthenticated } = useSelector((state: IState) => state.auth);
 
 	useEffect(() => {
 		if (isSuccess === true) {
@@ -63,21 +63,21 @@ const Welcome: FunctionComponent = () => {
 		getData();
 	}, [isSuccess, dispatch]);
 
-	console.log('🧨', isSuccess);
-
 	const openSignupModel = () => {
 		setToggleSignupModal(true);
 	};
 	const closeSignupModal = () => {
 		setToggleSignupModal(false);
+		dispatch(clearServerMessage());
 	};
 	const closeLoginModal = () => {
 		setToggleLoginModal(false);
+		dispatch(clearServerMessage());
 	};
 
-	if (isAuthenticating) {
-		return <p>'Loading'</p>;
-	}
+	// if (isAuthenticating) {
+	// 	return <p>'Loading'</p>;
+	// }
 
 	if (isAuthenticated) {
 		history.push('/home');

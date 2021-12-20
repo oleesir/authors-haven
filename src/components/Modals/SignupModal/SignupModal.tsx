@@ -1,13 +1,15 @@
 /* eslint-disable jsx-a11y/aria-role */
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../Button/Button';
 import { FiX } from 'react-icons/fi';
 import { clearServerMessage } from '../../../features/authentication/auth';
 import { signupUser } from '../../../features/authentication/auth';
 import { useDispatch, useSelector } from 'react-redux';
+import { HTTP_STATUS } from '../../../constants';
 import classes from './SignupModal.module.css';
 import { HomeProps, IState, SignupInput } from '../../../types/authTypes';
+import { ClipLoader } from 'react-spinners';
 
 const SignupModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 	const dispatch = useDispatch();
@@ -19,8 +21,7 @@ const SignupModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 		formState: { errors },
 	} = useForm<SignupInput>({ mode: 'onBlur' });
 
-	const [loading, setLoading] = useState<boolean>(false);
-	const { errorMessage, isError, isSuccess } = useSelector((state: IState) => state.auth);
+	const { errorMessage, isError, isSuccess, loadingStatus } = useSelector((state: IState) => state.auth);
 
 	useEffect(() => {
 		const getData = () => {
@@ -35,11 +36,9 @@ const SignupModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 	}, [isSuccess, setValue]);
 
 	const submitForm = async (data: any) => {
-		setLoading(true);
 		if (data) {
 			dispatch(signupUser(data));
 		}
-		setLoading(false);
 	};
 
 	const handleChange = (event: any) => {
@@ -182,12 +181,12 @@ const SignupModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 								<Button
 									btnTypes='SubmitModalBtn'
 									dataTestId='signup-modal-btn'
-									disabled={loading}
+									disabled={loadingStatus === HTTP_STATUS.PENDING}
 									sizes={''}
 									onClick={submitForm}
 									type='submit'
 								>
-									Signup
+									{loadingStatus === HTTP_STATUS.PENDING ? <ClipLoader color='#fff' size={15} /> : 'Signup'}
 								</Button>
 							</div>
 						</form>

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/aria-role */
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../Button/Button';
 import { FiX } from 'react-icons/fi';
@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { LoginInput, IState, HomeProps } from '../../../types/authTypes';
 import classes from './LoginModal.module.css';
+import { HTTP_STATUS } from '../../../constants';
+import { ClipLoader } from 'react-spinners';
 
 const LoginModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 	const dispatch = useDispatch();
@@ -31,8 +33,7 @@ const LoginModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 		formState: { errors },
 	} = useForm<LoginInput>({ mode: 'onBlur' });
 
-	const [loading, setLoading] = useState<boolean>(false);
-	const { errorMessage, isError, isSuccess } = useSelector((state: IState) => state.auth);
+	const { errorMessage, isError, isSuccess, loadingStatus } = useSelector((state: IState) => state.auth);
 
 	useEffect(() => {
 		const getData = () => {
@@ -45,11 +46,9 @@ const LoginModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 	}, [isSuccess, setValue]);
 
 	const submitForm = async (data: any) => {
-		setLoading(true);
 		if (data) {
 			dispatch(loginUser(data));
 		}
-		setLoading(false);
 	};
 
 	const handleChange = (event: any) => {
@@ -142,12 +141,12 @@ const LoginModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 								<Button
 									btnTypes='SubmitModalBtn'
 									dataTestId='login-modal-btn'
-									disabled={loading}
+									disabled={loadingStatus === HTTP_STATUS.PENDING}
 									sizes={''}
 									onClick={submitForm}
 									type='submit'
 								>
-									Login
+									{loadingStatus === HTTP_STATUS.PENDING ? <ClipLoader color='#fff' size={15} /> : 'Login'}
 								</Button>
 							</div>
 							<div className={classes.ForgotPass}>

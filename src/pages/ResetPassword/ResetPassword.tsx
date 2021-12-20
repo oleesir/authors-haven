@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetPassword, clearServerMessage } from '../../features/authentication/auth';
@@ -7,7 +7,7 @@ import { ClipLoader } from 'react-spinners';
 import { IState } from '../../types/authTypes';
 import Notification from '../../components/Notifications/Notification';
 import { createNotification } from '../../features/notification';
-import { notificationValue } from '../../constants';
+import { HTTP_STATUS, notificationValue } from '../../constants';
 import classes from './ResetPassword.module.css';
 
 const useQueryString = () => {
@@ -22,7 +22,7 @@ const ResetPassword: FunctionComponent = () => {
 	const [closeNotification, setCloseNotification] = useState<boolean>(false);
 	const dispatch = useDispatch();
 	const token = queryString.get('token');
-	const { isSuccess, errorMessage, isError } = useSelector((state: IState) => state.auth);
+	const { isSuccess, errorMessage, isError, loadingStatus } = useSelector((state: IState) => state.auth);
 
 	useEffect(() => {
 		if (isSuccess === true) {
@@ -111,9 +111,14 @@ const ResetPassword: FunctionComponent = () => {
 						</div>
 					</div>
 
-					<Button btnTypes={'ResetBtn'} type='submit' sizes={''} onClick={handleSubmit}>
-						{/* {isLoading && <ClipLoader color='white' size={15} />} */}
-						{/* {!isLoading && 'Reset'} */}
+					<Button
+						btnTypes={'ResetBtn'}
+						disabled={loadingStatus === HTTP_STATUS.PENDING}
+						type='submit'
+						sizes={''}
+						onClick={handleSubmit}
+					>
+						{loadingStatus === HTTP_STATUS.PENDING ? <ClipLoader color='#fff' size={15} /> : 'Reset'}
 						Reset
 					</Button>
 				</form>
