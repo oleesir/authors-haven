@@ -15,16 +15,6 @@ import { ClipLoader } from 'react-spinners';
 const LoginModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const authenticated = useSelector((state: any) => state.auth.isAuthenticated);
-
-	useEffect(() => {
-		const getData = () => {
-			if (authenticated) {
-				history.push('/home');
-			}
-		};
-		return getData();
-	}, [history, authenticated]);
 
 	const {
 		register,
@@ -33,7 +23,17 @@ const LoginModal: FunctionComponent<HomeProps> = ({ closeModal }) => {
 		formState: { errors },
 	} = useForm<LoginInput>({ mode: 'onBlur' });
 
-	const { errorMessage, isError, isSuccess, loadingStatus } = useSelector((state: IState) => state.auth);
+	const { errorMessage, isError, isSuccess, loadingStatus, isAuthenticated } = useSelector(
+		(state: IState) => state.auth,
+	);
+	useEffect(() => {
+		const getData = () => {
+			if (isAuthenticated) {
+				history.push('/home');
+			}
+		};
+		return getData();
+	}, [history, isAuthenticated]);
 
 	useEffect(() => {
 		const getData = () => {

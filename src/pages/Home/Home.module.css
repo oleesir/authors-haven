@@ -1,0 +1,240 @@
+.Container {
+	display: flex;
+	height: 100vh;
+	flex-direction: column;
+}
+
+.Content {
+	display: flex;
+	width: 100%;
+	height: 100vh;
+}
+
+.Right {
+	height: 100vh;
+	width: 40%;
+	border-left: 1px solid #fbf7f0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.AuthCard {
+	width: 100%;
+	background-color: #fff;
+	display: flex;
+	margin-bottom: 30px;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+.Left {
+	height: 100vh;
+	width: 60%;
+	padding: 0px 50px 0px 150px;
+	display: flex;
+	flex-direction: column;
+}
+
+.HeadersLeft {
+	padding: 20px 0;
+	margin-top: 200px;
+	width: 100%;
+}
+
+.HeadersLeft p {
+	font-size: 25px;
+}
+
+.HeadersRight {
+	padding: 20px 0;
+	margin-top: 124px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.HeadersRight p {
+	font-size: 20px;
+}
+
+.Line {
+	border-top: 1px solid #fbf7f0;
+	margin-top: 10px;
+	width: 50%;
+}
+
+.LeftContent {
+	height: 100%;
+	overflow: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.LeftContent::-webkit-scrollbar {
+	display: none; /* Safari and Chrome */
+}
+
+.AuthCardImg {
+	height: 192px;
+	width: 200px;
+}
+
+.AuthCardInfo {
+	display: flex;
+	padding: 5px 20px;
+	flex-direction: column;
+	width: 100%;
+}
+
+.AuthCardTop {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.BookmarkChecked {
+	width: 20px;
+	height: 20px;
+}
+
+.AuthCardMid {
+	width: 100%;
+	margin-bottom: 18px;
+}
+
+.AuthCardMid p {
+	font-size: 14px;
+	color: #9b9b9b;
+	margin-top: 10px;
+}
+
+.AuthCardBottom {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+}
+
+.BottomPic {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
+
+.BottomEyes {
+	width: 15px;
+	height: 15px;
+}
+
+.TopStoriesList {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 150px;
+}
+
+.TopStoriesCard {
+	display: flex;
+	width: 100%;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+
+.TopStoriesCardImg {
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+}
+
+.TopStoriesCardInfo {
+	width: 70%;
+	display: flex;
+	flex-direction: column;
+	padding-left: 20px;
+}
+
+.TopStoriesCardTitle {
+	margin-bottom: 5px;
+}
+
+.TopStoriesCardTitle h5 {
+	font-size: 15px;
+}
+
+.TopStoriesCardBody p {
+	font-size: 13px;
+	color: #9b9b9b;
+}
+
+.SeeMore {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.SeeMoreContent {
+	width: 50%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.SeeMoreContent p {
+	font-size: 12px;
+	cursor: pointer;
+	color: rgba(253, 130, 52, 1);
+}
+
+.WhoToFollow {
+	padding-bottom: 20px;
+	margin-top: 50px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding-left: 90px;
+}
+
+.WhoToFollow p {
+	font-size: 20px;
+}
+
+.FollowList {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	/* align-items: center; */
+	/* padding: 0 150px; */
+}
+
+.FollowCard {
+	display: flex;
+	width: 60%;
+	margin-bottom: 10px;
+	padding-left: 90px;
+	cursor: pointer;
+	align-items: center;
+}
+
+.TopStoriesCardImg {
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+}
+
+.FollowCardName h5 {
+	font-size: 15px;
+	margin-bottom: 5px;
+}
+
+.FollowCardBody {
+	margin: 0 10px;
+}
+
+.FollowCardBody p {
+	font-size: 13px;
+	color: #9b9b9b;
+}

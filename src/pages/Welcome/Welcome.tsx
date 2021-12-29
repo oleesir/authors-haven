@@ -56,7 +56,6 @@ const Welcome: FunctionComponent = () => {
 					}),
 				);
 				setToggleSignupModal(false);
-
 				setCloseNotification(true);
 			}
 		};
@@ -75,12 +74,8 @@ const Welcome: FunctionComponent = () => {
 		dispatch(clearServerMessage());
 	};
 
-	// if (isAuthenticating) {
-	// 	return <p>'Loading'</p>;
-	// }
-
 	if (isAuthenticated) {
-		history.push('/home');
+		history.replace('/home');
 	}
 
 	return (
@@ -117,9 +112,9 @@ const Welcome: FunctionComponent = () => {
 						</div>
 					</div>
 					<div className={classes.SecondBannerRight}>
-						<div className={classes.CircleOne}></div>
-						<div className={classes.CircleTwo}></div>
-						<div className={classes.CircleThree}></div>
+						<img src='/images/avatar.png' alt='author' className={classes.CircleOne} />
+						<img src='/images/avatar.png' alt='author' className={classes.CircleTwo} />
+						<img src='/images/avatar.png' alt='author' className={classes.CircleThree} />
 						<div className={classes.Quote}>
 							<div className={classes.QuoteContent}>
 								<p className={classes.QuoteMsg}>"This is the best place to live on the internet"</p>
