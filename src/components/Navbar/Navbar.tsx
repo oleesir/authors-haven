@@ -1,24 +1,30 @@
 import React, { FunctionComponent, useState, Dispatch, SetStateAction } from 'react';
-import { FaBookReader, FaBars } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
 import SearchBar from '../SearchBar/SearchBar';
 import Button from '../Button/Button';
 import classes from './Navbar.module.css';
+import { logoutUser } from '../../features/authentication/auth';
+import { IState } from '../../types/authTypes';
+import { Link, NavLink } from 'react-router-dom';
 
 type HomeProps = {
-	setToggleSignupModal: Dispatch<SetStateAction<boolean>>;
-	setToggleLoginModal: Dispatch<SetStateAction<boolean>>;
+	setToggleSignupModal?: Dispatch<SetStateAction<boolean>>;
+	setToggleLoginModal?: Dispatch<SetStateAction<boolean>>;
 };
 
 const Navbar: FunctionComponent<HomeProps> = ({ setToggleSignupModal, setToggleLoginModal }) => {
 	const [openBurger, setOpenBurger] = useState<boolean>(false);
+	const { isAuthenticated } = useSelector((state: IState) => state.auth);
+	const dispatch = useDispatch();
 
 	const openSignupModal = () => {
-		setToggleSignupModal((toggle) => !toggle);
+		setToggleSignupModal?.((toggle) => !toggle);
 		setOpenBurger(false);
 	};
 
 	const openLoginModal = () => {
-		setToggleLoginModal((toggle) => !toggle);
+		setToggleLoginModal?.((toggle) => !toggle);
 		setOpenBurger(false);
 	};
 
@@ -26,49 +32,104 @@ const Navbar: FunctionComponent<HomeProps> = ({ setToggleSignupModal, setToggleL
 		setOpenBurger(!openBurger);
 	};
 
+	const logout = () => {
+		dispatch(logoutUser());
+	};
+
 	return (
 		<nav className={classes.Navbar}>
-			<FaBookReader size={30} color={'orange'} />
-			<SearchBar />
-			{!openBurger ? (
-				<div className={classes.AuthLink}>
-					<Button
-						btnTypes='AuthBtn'
-						sizes={''}
-						type='button'
-						dataTestId='open-signup-modal-btn'
-						onClick={() => {
-							openSignupModal();
-						}}
-					>
-						Signup
-					</Button>
-					<Button
-						btnTypes='AuthBtn'
-						sizes={''}
-						type='button'
-						dataTestId='open-login-modal-btn'
-						onClick={() => {
-							openLoginModal();
-						}}
-					>
-						Login
-					</Button>
-				</div>
-			) : (
-				<div className={`${classes.AuthLink} ${classes.Active}`}>
-					<Button btnTypes='AuthBtn' sizes={''} type='button' onClick={openSignupModal}>
-						Signup
-					</Button>
-					<Button btnTypes='AuthBtn' sizes={''} type='button' onClick={openLoginModal}>
-						Login
-					</Button>
-				</div>
-			)}
+			{isAuthenticated && (
+				<>
+					<div className={classes.Logo}>
+						<p>
+							1kb<span>Ideas</span>
+						</p>
+					</div>
 
-			<button className={classes.Burger} onClick={handleToggle}>
-				<FaBars size={20} color={'orange'} />
-			</button>
+					{!openBurger ? (
+						<div className={classes.DropDown}>
+							<Button btnTypes='AuthBtn' sizes={''} type='button' dataTestId='open-login-modal-btn'>
+								<img src='/images/avatar.png' alt='author' className={classes.TheImage} />
+							</Button>
+							<ul>
+								<li>
+									<NavLink exact to='/home' activeClassName={classes.ActiveLink}>
+										Home
+									</NavLink>
+								</li>
+
+								<li onClick={logout}>
+									<Button btnTypes='LogOutBtn' dataTestId='login-modal-btn' sizes={''} type='button'>
+										Logout
+									</Button>
+								</li>
+							</ul>
+						</div>
+					) : (
+						<div className={`${classes.AuthLink} ${classes.Active}`}>
+							<Button btnTypes='AuthBtn' sizes={''} type='button' onClick={openSignupModal}>
+								Signup
+							</Button>
+							<Button btnTypes='AuthBtn' sizes={''} type='button' onClick={openLoginModal}>
+								Login
+							</Button>
+						</div>
+					)}
+
+					<button className={classes.Burger} onClick={handleToggle}>
+						<FaBars size={20} color={'orange'} />
+					</button>
+				</>
+			)}
+			{!isAuthenticated && (
+				<>
+					{' '}
+					<div className={classes.Logo}>
+						<p>
+							1kb<span>Ideas</span>
+						</p>
+					</div>
+					<SearchBar />
+					{!openBurger ? (
+						<div className={classes.AuthLink}>
+							<Button
+								btnTypes='AuthBtn'
+								sizes={''}
+								type='button'
+								dataTestId='open-signup-modal-btn'
+								onClick={() => {
+									openSignupModal();
+								}}
+							>
+								Signup
+							</Button>
+							<Button
+								btnTypes='AuthBtn'
+								sizes={''}
+								type='button'
+								dataTestId='open-login-modal-btn'
+								onClick={() => {
+									openLoginModal();
+								}}
+							>
+								Login
+							</Button>
+						</div>
+					) : (
+						<div className={`${classes.AuthLink} ${classes.Active}`}>
+							<Button btnTypes='AuthBtn' sizes={''} type='button' onClick={openSignupModal}>
+								Signup
+							</Button>
+							<Button btnTypes='AuthBtn' sizes={''} type='button' onClick={openLoginModal}>
+								Login
+							</Button>
+						</div>
+					)}
+					<button className={classes.Burger} onClick={handleToggle}>
+						<FaBars size={20} color={'orange'} />
+					</button>
+				</>
+			)}
 		</nav>
 	);
 };

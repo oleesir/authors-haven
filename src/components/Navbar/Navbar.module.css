@@ -1,8 +1,8 @@
 .Navbar {
 	width: 100%;
-	padding: 10px 30px;
+	padding: 8px 150px;
 	position: fixed;
-	background-color: #e8e8e8;
+	background-color: #fd8234;
 	justify-content: space-between;
 	display: flex;
 	align-items: center;
@@ -11,6 +11,22 @@
 	-webkit-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
 	-moz-box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
 	box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.Logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.Logo p {
+	font-size: 25px;
+	font-weight: 600;
+	color: #fff;
+}
+
+.Logo span {
+	font-weight: 400;
 }
 
 .AuthLink {
@@ -27,13 +43,24 @@
 	text-align: center;
 	border-radius: 8px;
 	outline: none;
-	background-color: transparent;
+	/* background-color: transparent; */
 	color: #fff;
 }
 
-.AuthBtn:hover {
+/* .AuthBtn:hover {
 	color: #fd8234;
 	transition: 0.5s all ease-out;
+} */
+
+.ActiveLink {
+	background-color: #fd8234;
+	text-decoration: none;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .Burger {
@@ -42,6 +69,56 @@
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
+}
+
+.TheImage {
+	border-radius: 50%;
+	width: 35px;
+	height: 35px;
+}
+
+.DropDown {
+	position: relative;
+}
+
+.DropDown ul {
+	margin-top: 3px;
+	position: absolute;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
+	width: 200px;
+	height: 200px;
+	border: 1px solid #e8e8e8;
+	background-color: #fff;
+	left: -100px;
+	list-style: none;
+	border-radius: 5px;
+	opacity: 0;
+	transform: translateY(5px);
+	transition: all 0.4s ease;
+}
+
+.DropDown li {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+}
+
+/* .ActiveLink :hover {
+	background-color: #ff8300;
+	color: #fff;
+	cursor: pointer;
+} */
+
+.DropDown button:focus + ul {
+	opacity: 1;
+	pointer-events: all;
+	transform: translateY(0px);
 }
 
 @media screen and (max-width: 600px) {
