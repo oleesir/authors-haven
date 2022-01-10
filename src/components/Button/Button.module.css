@@ -40,7 +40,15 @@
 	border-radius: 8px;
 	outline: none;
 	background-color: transparent;
-	color: #fff;
+	color: #ff8300;
+}
+
+.ImgBtn {
+	border: none;
+	cursor: pointer;
+	border-radius: 50%;
+	outline: none;
+	background-color: transparent;
 }
 
 .ResetBtn {

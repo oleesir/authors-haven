@@ -1,0 +1,35 @@
+.Container {
+	padding: 0 18rem;
+}
+
+.InputField {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	outline: none;
+	border-radius: 4px;
+	margin-bottom: 25px;
+}
+
+.TextArea {
+	width: 100%;
+	padding: 12px;
+	height: 100px;
+	line-height: 1.6;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 16px;
+	resize: none;
+	outline: none;
+	margin-bottom: 25px;
+}
+
+.BtnField {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 50px;
+}

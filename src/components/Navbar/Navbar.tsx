@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import classes from './Navbar.module.css';
 import { logoutUser } from '../../features/authentication/auth';
 import { IState } from '../../types/authTypes';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 type HomeProps = {
 	setToggleSignupModal?: Dispatch<SetStateAction<boolean>>;
@@ -15,6 +15,7 @@ type HomeProps = {
 
 const Navbar: FunctionComponent<HomeProps> = ({ setToggleSignupModal, setToggleLoginModal }) => {
 	const [openBurger, setOpenBurger] = useState<boolean>(false);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const { isAuthenticated } = useSelector((state: IState) => state.auth);
 	const dispatch = useDispatch();
 
@@ -36,6 +37,10 @@ const Navbar: FunctionComponent<HomeProps> = ({ setToggleSignupModal, setToggleL
 		dispatch(logoutUser());
 	};
 
+	const togglePanel = () => {
+		setIsOpen((prev) => !prev);
+	};
+
 	return (
 		<nav className={classes.Navbar}>
 			{isAuthenticated && (
@@ -48,22 +53,31 @@ const Navbar: FunctionComponent<HomeProps> = ({ setToggleSignupModal, setToggleL
 
 					{!openBurger ? (
 						<div className={classes.DropDown}>
-							<Button btnTypes='AuthBtn' sizes={''} type='button' dataTestId='open-login-modal-btn'>
+							<Button
+								btnTypes='ImgBtn'
+								sizes={''}
+								type='button'
+								dataTestId='open-login-modal-btn'
+								onClick={togglePanel}
+							>
 								<img src='/images/avatar.png' alt='author' className={classes.TheImage} />
 							</Button>
-							<ul>
-								<li>
-									<NavLink exact to='/home' activeClassName={classes.ActiveLink}>
-										Home
-									</NavLink>
-								</li>
+							{isOpen && (
+								<ul>
+									<li>
+										<NavLink exact to='/home' activeClassName={classes.ActiveLink}>
+											Home
+										</NavLink>
+									</li>
+									<li>
+										<NavLink to='/profile' activeClassName={classes.ActiveLink}>
+											Profile
+										</NavLink>
+									</li>
 
-								<li onClick={logout}>
-									<Button btnTypes='LogOutBtn' dataTestId='login-modal-btn' sizes={''} type='button'>
-										Logout
-									</Button>
-								</li>
-							</ul>
+									<li onClick={logout}>Logout</li>
+								</ul>
+							)}
 						</div>
 					) : (
 						<div className={`${classes.AuthLink} ${classes.Active}`}>
