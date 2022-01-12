@@ -21,6 +21,10 @@ export type EmailInfo = {
 	email: string | null;
 };
 
+export type ActiveParam = {
+	active?: string;
+};
+
 export type AuthState = {
 	user: UserInfo | null;
 	loadingStatus: string;

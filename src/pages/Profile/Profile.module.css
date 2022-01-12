@@ -1,0 +1,166 @@
+.Container {
+	display: flex;
+	height: 100vh;
+	flex-direction: column;
+	/* padding: 0 200px; */
+}
+
+.Content {
+	display: flex;
+	width: 100%;
+	margin-top: 58px;
+	flex-direction: column;
+}
+
+.Banner {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	border-bottom: none;
+	box-shadow: -2px 10px 5px 0px rgba(0, 0, 0, 0.13);
+	-webkit-box-shadow: -2px 10px 5px 0px rgba(0, 0, 0, 0.13);
+	-moz-box-shadow: -2px 10px 5px 0px rgba(0, 0, 0, 0.13);
+}
+
+.TopBanner {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	background-color: #fd8234;
+	padding: 70px 0;
+}
+
+.ImageContent {
+	border-radius: 50%;
+	height: 120px;
+	width: 120px;
+	position: absolute;
+	left: 46.5rem;
+	top: 7rem;
+	z-index: 1;
+}
+
+.BottomBanner {
+	padding-top: 50px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.BioContent {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 20em;
+}
+
+.Name {
+	font-size: 25px;
+	margin-bottom: 10px;
+}
+
+.Bio {
+	text-align: center;
+	margin-top: 10px;
+}
+
+.BioText {
+	font-size: 18px;
+	line-height: 1.4;
+	color: #9b9b9b;
+}
+
+.FindMe {
+	display: flex;
+	width: 30%;
+	margin-top: 20px;
+	justify-content: space-around;
+}
+
+.Location {
+	display: flex;
+	justify-content: space-around;
+	width: 20%;
+}
+
+.LocationName {
+	margin-left: 5px;
+	color: #9b9b9b;
+}
+
+.Social {
+	width: 40%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.Facebook {
+	font-size: 1.2em;
+	color: #1976f2;
+	cursor: pointer;
+}
+
+.Twitter {
+	font-size: 1.2em;
+	color: #1da1f2;
+	cursor: pointer;
+}
+
+.Linkedin {
+	font-size: 1.2em;
+	color: #0e76a8;
+	cursor: pointer;
+}
+
+.Marker {
+	font-size: 1.2em;
+	color: #9b9b9b;
+}
+
+.BannerNav {
+	margin-top: 30px;
+	display: flex;
+	width: 50%;
+}
+
+.EmptyBannerNav {
+	margin-top: 30px;
+	width: 50%;
+	padding: 10px;
+}
+
+.ActiveLink {
+	color: #fd8234;
+	border-bottom: 3px solid #fd8234;
+}
+
+.ActiveLink a {
+	color: #fd8234;
+}
+
+.BioContent a {
+	color: #fd8234;
+}
+
+ul {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+ul li {
+	text-decoration: none;
+	color: #9b9b9b;
+	width: 60%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	padding-bottom: 15px;
+}
+
+.TabView {
+	width: 100%;
+	padding: 2em 20em 0 20em;
+}
